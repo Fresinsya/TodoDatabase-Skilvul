@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 // buat struktur tabel
 const todos = new mongoose.Schema({
     value: String,
-    status: boolean,
+    status: Boolean,
     UserId: {
         type: mongoose.ObjectId,
         ref: 'User'

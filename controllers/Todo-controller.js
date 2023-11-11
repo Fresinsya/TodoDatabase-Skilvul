@@ -1,3 +1,5 @@
+const Todos = require("../models/Todos");
+
 module.exports = {
     createTodo: async (req, res) => {
         const data = req.body
@@ -34,5 +36,23 @@ module.exports = {
 
         }
         
+    },
+
+    // read all todos
+    readTodos: async (req,res) => {
+        const {id} = req.user;
+
+        try {
+            const todos = await Todos.find({UserId: id})
+            res.status(200).json({
+                message: "Berhasil mendapatkan data",
+                data: todos
+            })
+        } catch (error) {
+            res.status(500).json({
+                message: "Gagal mendapatkan data",
+                error: error.message
+            })
+        }
     }
 }
