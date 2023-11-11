@@ -8,5 +8,6 @@ route.get('/', verifyToken, readTodos)
 route.get('/:id', verifyToken, readTodoDetail)
 route.put('/:id', verifyToken, updateTodo)
 route.delete('/:id', verifyToken, deleteTodo)
+route.post('/deleteall', verifyToken, deleteAllTodo)
 
 module.exports = route;

@@ -147,5 +147,24 @@ module.exports = {
         }
     },
 
-    
+    // delete all todo
+    deleteAllTodo : async (req, res) => {
+        const idTodo = req.params.id;
+        const userID = req.user.id;
+
+        try {
+            const todo = await Todos.deleteMany({UserId: userID})
+
+            res.status(200).json({
+                message: "Berhasil delete data",
+                data: todo
+            })
+
+        } catch (error) {
+            res.status(500).json({
+                message: "Gagal delete data",
+                error: error.message
+            })
+        }
+    },
 }
