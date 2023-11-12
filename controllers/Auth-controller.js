@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
@@ -8,6 +9,18 @@ module.exports = {
 
         const { name, username, email, password } = data;
 
+        //untuk mengenkripsi password
+        let saltRounds = 10
+        let hashPassword = bcrypt.hashSync(data.password, saltRounds);
+
+        // untuk mengganti password dengan password yang sudah dienkripsi
+        data.password = hashPassword
+
+        // user push data baru
+        Users.push(data)
+
+
+        // untuk mengcek / reqierq
         if (!name || !username || !email || !password) {
             res.status(400).json({
                 message: "Semua field harus diisi"
@@ -69,7 +82,7 @@ module.exports = {
             return;
         }
 
-        if (cekEmail.password !== password) {
+        if (!bcrypt.compareSync(password, cekEmail.password)) {
             res.status(400).json({
                 message: "Password salah"
             })
