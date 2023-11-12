@@ -21,6 +21,12 @@ db.then(() => {
 app.use(express.json());
 app.use(allroute);
 
+app.use((req, res) => {
+    res.json({
+        Message: "endpoint tidak ada"
+    })
+})
+
 
 app.listen(3000, () => {
     console.log('Server listening on port ' + PORT);
